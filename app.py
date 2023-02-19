@@ -71,7 +71,7 @@ def root():
         + "<h1>private-ghp</h1>"
         + (
             (
-                f"<p>logged in as {user['login']}</p>"
+                f"<p>logged in as {user.get('login', 'unknown user')}</p>"
                 f"<a href='{url_for('logout')}'>logout</a><br><br>"
                 "<form action='/go' method='post'>"
                 "<label for='url'>paste github url:</label>"
