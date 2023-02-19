@@ -8,10 +8,13 @@ Premise
 
 Pointing your browser to
 
-    https://<my_domain>/<repo_owner>/<repo_name>/<ref>/<file_path>
+    https://<my_domain>/https://github.com/<repo_owner>/<repo_name>/blob/<ref>/<file_path>
 
 will display the contents of that file in your browser (even if the repo is
 private) using your GitHub permissions via OAuth2.
+
+Note that this is achievable by just copy-pasting the full URL to the file when
+viewing it in GitHub.
 
 Motivation
 ----------
@@ -40,7 +43,7 @@ Navigate to http://localhost:5000/ to complete the login flow.
 
 Then navigate to e.g.
 
-http://localhost:5000/sclabs/aotd-graph-d3/master/index.html
+http://localhost:5000/https://github.com/sclabs/aotd-graph-d3/blob/master/index.html
 
 to see the file `index.html` from the `master` branch of the
 [sclabs/aotd-graph-d3](https://github.com/sclabs/aotd-graph-d3) repo.
