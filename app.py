@@ -23,7 +23,16 @@ head = """
     body {
       background-color: black;
     }
-    a, h1, p {
+    input {
+      background-color: black;
+      border-color: white;
+      border-style: solid;
+      border-width: 1px;
+    }
+    input#url {
+      width: 70%;
+    }
+    a, h1, input, label, p {
       font-family: monospace;
       color: white;
     }
@@ -63,7 +72,12 @@ def root():
         + (
             (
                 f"<p>logged in as {user['login']}</p>"
-                f"<a href='{url_for('logout')}'>logout</a>"
+                f"<a href='{url_for('logout')}'>logout</a><br><br>"
+                "<form action='/go' method='post'>"
+                "<label for='url'>paste github url:</label>"
+                "<input type='text' id='url' name='url'>"
+                "<input type='submit' value='go'><br><br>"
+                "</form>"
             )
             if logged_in
             else f"<a href='{url_for('login')}'>login</a>"
@@ -109,6 +123,11 @@ def logout():
         head + f"<pre>{response.json()}</pre>"
         f"<a href='{url_for('root')}'>return home</a>"
     )
+
+
+@app.route("/go", methods=["POST"])
+def go():
+    return redirect("/" + request.form["url"])
 
 
 @app.route(
