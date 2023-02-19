@@ -74,7 +74,11 @@ And to run the image locally at http://localhost:5000
         -e FLASK_SECRET_KEY=... \
         -e PRIVATE_GHP_CLIENT_ID=... \
         -e PRIVATE_GHP_CLIENT_SECRET=... \
+        -e OAUTHLIB_INSECURE_TRANSPORT=1
         private-ghp
+
+Note that you need to set `OAUTHLIB_INSECURE_TRANSPORT=1` for local testing with
+no HTTPS.
 
 Deploy
 ------
@@ -88,6 +92,11 @@ the gilgi cloud configuration for this subdomain:
  - `FLASK_SECRET_KEY`
  - `PRIVATE_GHP_CLIENT_ID`
  - `PRIVATE_GHP_CLIENT_SECRET`
+ - `OAUTHLIB_INSECURE_TRANSPORT=1`
+
+Note that for gilgi cloud deployment we set `OAUTHLIB_INSECURE_TRANSPORT=1`
+because SSL is terminated by an nginx reverse proxy upstream of this
+application's container.
 
 After the first deploy, you may need to renew the SSL certs by running
 
