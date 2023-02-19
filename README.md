@@ -59,7 +59,9 @@ Then generate a client ID and secret for that app and store them as
 Docker image
 ------------
 
-The Docker image is re-built and published to Docker Hub as
+The docker image is based on [tiangolo/meinheld-gunicorn-flask](https://hub.docker.com/r/tiangolo/meinheld-gunicorn-flask).
+
+The Docker image is built and published to Docker Hub as
 `thomasgilgenast/private-ghp:latest` on every commit to main by GitHub Actions.
 
 You can also build the image locally with
