@@ -1,0 +1,7 @@
+# dev
+black
+
+# web and auth
+flask
+requests
+requests-oauthlib
