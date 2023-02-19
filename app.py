@@ -114,7 +114,7 @@ def logout():
 @app.route(
     "/https://github.com/<owner>/<repo>/blob/<rev>/<path:file_path>", methods=["GET"]
 )
-def profile(owner, repo, rev, file_path):
+def content(owner, repo, rev, file_path):
     github, redirect_response, logged_in = ensure_auth()
     if redirect_response:
         return redirect_response
