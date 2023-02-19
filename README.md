@@ -87,9 +87,9 @@ the gilgi cloud configuration for this subdomain:
  - `PRIVATE_GHP_CLIENT_ID`
  - `PRIVATE_GHP_CLIENT_SECRET`
 
-After the first deploy, you may need to refresh SSL certs by running
+After the first deploy, you may need to renew the SSL certs by running
 
-    !cloud refresh
+    !cloud renew
 
 Compiling dependencies
 ----------------------
