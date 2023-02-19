@@ -32,7 +32,7 @@ head = """
     input#url {
       width: 70%;
     }
-    a, h1, input, label, p {
+    a, h1, input, label, p, pre {
       font-family: monospace;
       color: white;
     }
@@ -115,9 +115,8 @@ def logout():
         data=json.dumps({"access_token": session["oauth_token"]["access_token"]}),
         auth=HTTPBasicAuth(client_id, client_secret),
     )
+    session.clear()
     if response.status_code == 204:
-        del session["oauth_state"]
-        del session["oauth_token"]
         return redirect(url_for("root"))
     return (
         head + f"<pre>{response.json()}</pre>"
