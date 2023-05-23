@@ -136,10 +136,10 @@ def content(owner, repo, rev, file_path):
     github, redirect_response, logged_in = ensure_auth()
     if redirect_response:
         return redirect_response
-    content_dict = github.get(
-        f"https://api.github.com/repos/{owner}/{repo}/contents/{file_path}?ref={rev}"
-    ).json()
-    content = base64.b64decode(content_dict["content"])
+    content = github.get(
+        f"https://api.github.com/repos/{owner}/{repo}/contents/{file_path}?ref={rev}",
+        headers={"Accept": "application/vnd.github.raw"},
+    ).text
     mimetype, _ = mimetypes.guess_type(file_path)
     if file_path.endswith(".md"):
         mimetype = "text/plain"
