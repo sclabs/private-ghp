@@ -1,11 +1,10 @@
-import base64
+import io
 import json
 import mimetypes
 import os
 
 import requests
-from flask import Flask, Response, request, redirect, session, url_for
-from flask.json import jsonify
+from flask import Flask, request, redirect, send_file, session, url_for
 from requests.auth import HTTPBasicAuth
 from requests_oauthlib import OAuth2Session
 
@@ -130,20 +129,39 @@ def go():
 
 
 @app.route(
-    "/https://github.com/<owner>/<repo>/blob/<rev>/<path:file_path>", methods=["GET"]
+    "/https://github.com/<owner>/<repo>/blob/<rev>/<path:file_path>",
+    methods=["GET"],
+)
+@app.route(
+    "/https://github.com/<owner>/<repo>/blob/<rev>/",
+    methods=["GET"],
+    defaults={"file_path": None},
 )
 def content(owner, repo, rev, file_path):
+    # ensure auth
     github, redirect_response, logged_in = ensure_auth()
     if redirect_response:
         return redirect_response
-    content = github.get(
-        f"https://api.github.com/repos/{owner}/{repo}/contents/{file_path}?ref={rev}",
-        headers={"Accept": "application/vnd.github.raw"},
-    ).text
+
+    # rewrite URLs ending in / to /index.html
+    if file_path is None:
+        file_path = "index.html"
+    elif file_path.endswith("/"):
+        file_path += "index.html"
+
+    # deduce mimetype
     mimetype, _ = mimetypes.guess_type(file_path)
     if file_path.endswith(".md"):
         mimetype = "text/plain"
-    return Response(content, mimetype=mimetype)
+
+    # get content
+    content = github.get(
+        f"https://api.github.com/repos/{owner}/{repo}/contents/{file_path}?ref={rev}",
+        headers={"Accept": "application/vnd.github.raw"},
+    )
+
+    # return response
+    return send_file(io.BytesIO(content.content), mimetype=mimetype)
 
 
 if __name__ == "__main__":
