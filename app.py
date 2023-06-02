@@ -153,6 +153,12 @@ def content(owner, repo, rev, file_path):
     mimetype, _ = mimetypes.guess_type(file_path)
     if file_path.endswith(".md"):
         mimetype = "text/plain"
+    elif file_path.endswith(".map"):
+        mimetype = "application/json"
+    elif file_path.endswith(".woff"):
+        mimetype = "font/woff"
+    if mimetype is None:
+        raise ValueError(f"could not deduce mimetype for {file_path}")
 
     # get content
     content = github.get(

@@ -77,7 +77,7 @@ And to run the image locally at http://localhost:5000
         -e FLASK_SECRET_KEY=... \
         -e PRIVATE_GHP_CLIENT_ID=... \
         -e PRIVATE_GHP_CLIENT_SECRET=... \
-        -e OAUTHLIB_INSECURE_TRANSPORT=1
+        -e OAUTHLIB_INSECURE_TRANSPORT=1 \
         private-ghp
 
 Note that you need to set `OAUTHLIB_INSECURE_TRANSPORT=1` for local testing with
