@@ -158,7 +158,11 @@ def content(owner, repo, rev, file_path):
     elif file_path.endswith(".woff"):
         mimetype = "font/woff"
     if mimetype is None:
-        raise ValueError(f"could not deduce mimetype for {file_path}")
+        app.logger.info(
+            f"could not deduce mimetype for {file_path}, "
+            "defaulting to application/octet-stream"
+        )
+        mimetype = "application/octet-stream"
 
     # get content
     content = github.get(
